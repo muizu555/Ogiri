@@ -53,7 +53,7 @@ router.delete("/:id", async (req, res) => {// /:idはこれから編集する投
 
 
 //投稿を取得する
-router.get("/:id", async (req, res) => {// /:idはこれから編集する投稿のID これは、誰でも見れるように
+router.get("/:id", async (req, res) => {// /:idはこれから編集する投稿のID これは、誰でも見れるようにs
     try {
         const post = await Post.findById(req.params.id);
         return res.status(200).json(post)
