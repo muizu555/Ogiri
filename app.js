@@ -1,7 +1,10 @@
 const express = require("express");
 const app = express();
+
+
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/post");
+const boardRoute = require("./routes/board");
 
 
 
@@ -13,6 +16,7 @@ app.use(express.json());
 app.use(express.static("./public"));
 app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
+app.use("/api/boards", boardRoute);
 
 
 const PORT = 8080;

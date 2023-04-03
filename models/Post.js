@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 
-const PostSchema = new mongoose.Schema({
+const PostSchema = new mongoose.Schema({//こっち側にもどのお題か見分けるためにOdaiのIDがいるっぽい
     userId: {//この回答をした人のId
         type: String,
         required: true,

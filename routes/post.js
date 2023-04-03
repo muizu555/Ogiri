@@ -6,7 +6,7 @@ const Post = require("../models/Post");
 router.post("/", async (req, res) => {
     const newPost = new Post(req.body);//インスタンス化している。req.bodyを含んだ新しいデータができる。
     try {
-        const savedPost = await newPost.save();//saveする必要がある。
+        const savedPost = await newPost.save();//saveする必要がある。->インスタンス化で作っているから。createならいらないかも＞document見ろ
         return res.status(200).json(savedPost);
     } catch (err) {
         return res.status(500).json(err);
@@ -53,7 +53,7 @@ router.delete("/:id", async (req, res) => {// /:idはこれから編集する投
 
 
 //投稿を取得する
-router.get("/:id", async (req, res) => {// /:idはこれから編集する投稿のID
+router.get("/:id", async (req, res) => {// /:idはこれから編集する投稿のID これは、誰でも見れるように
     try {
         const post = await Post.findById(req.params.id);
         return res.status(200).json(post)

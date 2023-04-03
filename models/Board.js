@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const OdaiSchema = new mongoose.Schema({
+const BoardSchema = new mongoose.Schema({
     userId: {//作った人このお題を
         type: String,
         required: true,
@@ -24,4 +24,4 @@ const OdaiSchema = new mongoose.Schema({
 
 );
 
-module.exports = mongoose.model("Odai", OdaiSchema);
+module.exports = mongoose.model("Board", BoardSchema);
