@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 
 const PostSchema = new mongoose.Schema({
-    userId: {
+    userId: {//この回答をした人のId
         type: String,
         required: true,
     },
