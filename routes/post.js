@@ -3,16 +3,16 @@ const router = express.Router();
 const Post = require("../models/Post");
 const Board = require("../models/Board");
 
-//投稿を作成する。//まさかのここでお題への挿入をするの？
-router.post("/", async (req, res) => {
-    const newPost = new Post(req.body);//インスタンス化している。req.bodyを含んだ新しいデータができる。
-    try {
-        const savedPost = await newPost.save();//saveする必要がある。->インスタンス化で作っているから。createならいらないかも＞document見ろ
-        return res.status(200).json(savedPost);
-    } catch (err) {
-        return res.status(500).json(err);
-    }
-});
+// //投稿を作成する。//まさかのここでお題への挿入をするの？
+// router.post("/", async (req, res) => {
+//     const newPost = new Post(req.body);//インスタンス化している。req.bodyを含んだ新しいデータができる。
+//     try {
+//         const savedPost = await newPost.save();//saveする必要がある。->インスタンス化で作っているから。createならいらないかも＞document見ろ
+//         return res.status(200).json(savedPost);
+//     } catch (err) {
+//         return res.status(500).json(err);
+//     }
+// });
 //               | 下の方が正しい？   また、解答はpostだが、boardの配列へ格納するので、putメソッドなのでは？
 //
 router.post("/:id", async (req, res) => {//:idはboardのobjectID　どのお題に対する解答かが重要だから。
@@ -30,9 +30,6 @@ router.post("/:id", async (req, res) => {//:idはboardのobjectID　どのお題
         return res.status(500).json(err);
     }
 })
-
-
-
 
 
 
