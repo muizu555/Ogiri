@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const Post = require("../models/Post");
+const Board = require("../models/Board");
 
-//投稿を作成する。
+//投稿を作成する。//まさかのここでお題への挿入をするの？
 router.post("/", async (req, res) => {
     const newPost = new Post(req.body);//インスタンス化している。req.bodyを含んだ新しいデータができる。
     try {
@@ -12,6 +13,28 @@ router.post("/", async (req, res) => {
         return res.status(500).json(err);
     }
 });
+//               | 下の方が正しい？   また、解答はpostだが、boardの配列へ格納するので、putメソッドなのでは？
+//
+router.post("/:id", async (req, res) => {//:idはboardのobjectID　どのお題に対する解答かが重要だから。
+    const newPost = new Post(req.body);
+    try {//特にお題の解答の場合に権限をどうするかは、考えなくて良いはず。
+        const savedPost = await newPost.save();
+        const board = await Board.findById(req.params.id);//ここでどのboardに格納すべきかを探している.
+        await board.updateOne({
+            $push: {
+                num_answer: savedPost._id,//投稿のobjectIdを挿入している。
+            },
+        });
+        return res.status(200).json(savedPost);
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+})
+
+
+
+
+
 
 
 //投稿を更新する
