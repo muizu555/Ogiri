@@ -9,7 +9,7 @@ const User = require("../models/User");
 //register ユーザー登録
 router.post("/register", async(req,res) => {
     try {
-        const newUser = await new User({//req.bodyはリクエストの中に含まれるbody要素ということ
+        const newUser = await new User({
             username: req.body.username,
             password: req.body.password,
         });

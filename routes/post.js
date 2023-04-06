@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Post = require("../models/Post");
 const Board = require("../models/Board");
-const ObjectId = require('mongodb').ObjectId;
+const ObjectId = require('mongodb').ObjectId;//objectId問題他に解決策を見つけたい
+
 
 // //投稿を作成する。//まさかのここでお題への挿入をするの？
 // router.post("/", async (req, res) => {

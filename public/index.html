@@ -7,6 +7,37 @@
     <title>Ogiri</title>
 </head>
 <body>
-    
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo-board</title>
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <form class="task-form">
+        <h4>新入生に伝えたいこと</h4>
+        <div class="form-control">
+            <p>タイトル</p>
+            <input type="text" name="name" class="task-input" placeholder="(例):教科書について (注)30文字以内でお願いします"/>
+            <p>内容</p>
+            <textarea id="inputContent" class="content-input" rows="10" cols="30" placeholder="(例):ほとんど買わなくていいよ"></textarea>
+            <br />
+            <button type="submit" class="btn submit-btn">投稿</button>
+        </div>
+        <div class="form-alert"></div>
+    </form>
+
+    <section class="tasks-container">
+        <div class="thread-section"><!--こことこの下のclass名を変えた-->
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
 </body>
 </html>
