@@ -62,39 +62,4 @@ router.get("/:id", async (req, res) => {// /:idはこれから編集する投稿
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 module.exports = router;
