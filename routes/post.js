@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Post = require("../models/Post");
 const Board = require("../models/Board");
+const ObjectId = require('mongodb').ObjectId;
 
 // //投稿を作成する。//まさかのここでお題への挿入をするの？
 // router.post("/", async (req, res) => {
@@ -18,15 +19,16 @@ const Board = require("../models/Board");
 router.post("/:id", async (req, res) => {//:idはboardのobjectID　どのお題に対する解答かが重要だから。
     const newPost = new Post(req.body);
     try {//特にお題の解答の場合に権限をどうするかは、考えなくて良いはず。
-        const savedPost = await newPost.save();
         const board = await Board.findById(req.params.id);//ここでどのboardに格納すべきかを探している.
         await board.updateOne({
             $push: {
-                num_answer: savedPost._id,//投稿のobjectIdを挿入している。
+                num_answer: newPost._id,//投稿のobjectIdを挿入している。
             },
         });
+        const savedPost = await newPost.save();
         return res.status(200).json(savedPost);
     } catch (err) {
+        console.log(err);
         return res.status(500).json(err);
     }
 })
@@ -54,11 +56,23 @@ router.put("/:id", async (req, res) => {// /:idはこれから編集する投稿
 
 
 
-//投稿を削除する
+//投稿を削除する  ここで配列の中から削除するのが、難しい
 router.delete("/:id", async (req, res) => {// /:idはこれから編集する投稿のID
     try {
         const post = await Post.findById(req.params.id);
         if(post.userId === req.body.userId){
+            //ここが難しい。
+            const boards = await Board.find({});
+            const deleteTargetBoards =  boards.filter((board) => 
+                (board.num_answer.includes(req.params.id))
+            );
+            console.log(deleteTargetBoards);//見つけた
+
+            await deleteTargetBoards[0].updateOne({
+                $pull: {//pullは取り除く
+                    num_answer: new ObjectId(req.params.id),//ここで作っている。
+                  },
+            })
             await post.deleteOne();
             return res.status(200).json("投稿削除に成功しました")
         }
@@ -66,6 +80,7 @@ router.delete("/:id", async (req, res) => {// /:idはこれから編集する投
             return res.status(403).json("あなたは他の人の投稿を削除できません");
         }
     } catch (err) {
+        console.log(err);
         return res.status(500).json(err);
     }
    
