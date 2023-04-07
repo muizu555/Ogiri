@@ -1,8 +1,10 @@
 const formDOM = document.querySelector(".task-form");
 const usernameDOM = document.querySelector(".task-input");
 const passwordDOM = document.querySelector(".content-input");
+const signInDOM = document.querySelector(".sign-in");
 
-console.log(axios);
+
+//console.log(axios);
 
 
 formDOM.addEventListener("submit", async (event) => {
@@ -22,4 +24,9 @@ formDOM.addEventListener("submit", async (event) => {
         console.log(err);
     }
 
+});
+
+signInDOM.addEventListener("click", (event) => {
+    event.preventDefault();//not reload
+    window.location.href = "login.html";
 })

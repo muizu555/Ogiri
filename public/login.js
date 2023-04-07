@@ -1,6 +1,7 @@
 const formDOM = document.querySelector(".task-form");
 const usernameDOM = document.querySelector(".task-input");
 const passwordDOM = document.querySelector(".content-input");
+const updateDOM = document.querySelector(".update");
 
 //console.log(axios);
 
@@ -25,4 +26,26 @@ formDOM.addEventListener("submit", async (event) => {
     }
 
 })
+
+
+formDOM.addEventListener("submit", async (event) => {
+    event.preventDefault();//not reload
+    const username = usernameDOM.value;
+    const password = passwordDOM.value;
+
+     console.log(usernameDOM.value);
+     console.log(passwordDOM.value);
+
+    try {
+        await axios.post("/api/auth/login", { username: username, password: password});
+        usernameDOM.value = "";
+        passwordDOM.value="";
+        window.location.href = "index.html";
+    } catch (err) {
+        console.log(err);
+    }
+
+})
+
+
 

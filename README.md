@@ -9,7 +9,7 @@
 express MongoDB Mongoose
 
 これから
-JWT or 他の何か
+セッションベース認証の実装、機能の追加
 
 # クライアントサイド
 これから

@@ -5,6 +5,7 @@ const app = express();
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/post");
 const boardRoute = require("./routes/board");
+const sortPostRoute = require("./routes/getPostsSortedByLikes");
 
 
 
@@ -17,6 +18,7 @@ app.use(express.static("./public"));
 app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/boards", boardRoute);
+app.use("/api/sortPosts", sortPostRoute);
 
 
 const PORT = 8080;

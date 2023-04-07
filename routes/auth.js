@@ -29,12 +29,15 @@ router.post("/login", async(req, res) => {
         if(!vailedPassword) return res.status(400).json("パスワードが違います");
 
         //二つの条件式を突破できたら、
-        return res.status(200).json(user); //postman用
+        return res.status(200).json(user);
 
     } catch (err) {
         return res.status(500).json(err);
     }
 });
+
+
+
 
 module.exports = router;
 
