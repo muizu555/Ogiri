@@ -5,7 +5,7 @@ const app = express();
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/post");
 const boardRoute = require("./routes/board");
-const sortPostRoute = require("./routes/getPostsSortedByLikes");
+const sortPostRoute = require("./routes/getPostsSorted");
 
 
 

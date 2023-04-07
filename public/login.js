@@ -28,19 +28,10 @@ formDOM.addEventListener("submit", async (event) => {
 })
 
 
-formDOM.addEventListener("submit", async (event) => {
+updateDOM.addEventListener("submit", async (event) => {//ここはユーザー情報を変更する画面への遷移だけで良さそう
     event.preventDefault();//not reload
-    const username = usernameDOM.value;
-    const password = passwordDOM.value;
-
-     console.log(usernameDOM.value);
-     console.log(passwordDOM.value);
-
     try {
-        await axios.post("/api/auth/login", { username: username, password: password});
-        usernameDOM.value = "";
-        passwordDOM.value="";
-        window.location.href = "index.html";
+        await axios 
     } catch (err) {
         console.log(err);
     }
