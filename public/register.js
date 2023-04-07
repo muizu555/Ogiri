@@ -1,12 +1,8 @@
 const formDOM = document.querySelector(".task-form");
+const usernameDOM = document.querySelector(".task-input");
+const passwordDOM = document.querySelector(".content-input");
 
-
-
-
-
-
-
-
+console.log(axios);
 
 
 formDOM.addEventListener("submit", async (event) => {
