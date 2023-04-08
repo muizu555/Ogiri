@@ -12,10 +12,10 @@ const sortPostRoute = require("./routes/getPostsSorted");
 const connectDB = require("./db/connect");
 require("dotenv").config();
 
-
+//pathを指定しなければ全てで機能する
 app.use(express.json());
 app.use(express.static("./public"));
-app.use("/api/auth", authRoute);
+app.use("/api/auth", authRoute); 
 app.use("/api/posts", postRoute);
 app.use("/api/boards", boardRoute);
 app.use("/api/sortPosts", sortPostRoute);

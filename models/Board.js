@@ -25,3 +25,4 @@ const BoardSchema = new mongoose.Schema({
 );
 
 module.exports = mongoose.model("Board", BoardSchema);
+

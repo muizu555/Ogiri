@@ -13,6 +13,8 @@ express MongoDB Mongoose
 
 # クライアントサイド
 これから
+https://elms.u-aizu.ac.jp/login/index.phpこんな感じのpathかも
+もうちょっとかんがえるs
 
 
 

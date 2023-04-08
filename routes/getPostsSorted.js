@@ -3,7 +3,7 @@ const router = express.Router();
 
 const Post = require("../models/Post");
 
-//まず関数を作る　　//ここ激ムズ MongooseのDocumentもっと見る likesが配列だったので、うまくソートできなかったっぽい,_idも一緒に入れ替えてるっぽい  あってる？
+//まず関数を作る　　// MongooseのDocumentもっと見る likesが配列だったので、うまくソートできなかったっぽい,_idも一緒に入れ替えてるっぽい  あってる？
 // //人気順
  const getPostsByLikes = async () => {
      try {
@@ -50,19 +50,3 @@ const Post = require("../models/Post");
 
 module.exports = router;
 
-
-
-
-
-// const getPostsByLikes = async () => {//ここ激ムズ MongooseのDocumentもっと見る likesが配列だったので、うまくソートできなかったっぽい
-//     try {
-//       const posts = await Post.aggregate([
-//         {
-//           $sort: { likes: -1, _id: -1 } // likes の配列の長さで降順ソートし、_id で降順に並べ替える
-//         },
-//       ]);
-//       return posts;
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
