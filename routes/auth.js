@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
+const bcrypt = require("bcrypt");
 
 
 
@@ -9,14 +10,21 @@ const User = require("../models/User");
 //register ユーザー登録
 router.post("/register", async(req,res) => {
     try {
+        const { username, password } = req.body;
+        const hash = await bcrypt.hash(password, 12);
+        
         const newUser = await new User({
-            username: req.body.username,
-            password: req.body.password,
+            username: username,
+            password: hash,
         });
+
+
         const user = await newUser.save();//ここで登録を保存している。documentを見るべし。ここポイント
         return res.status(200).json(user);
+
+
     } catch (err) {
-        return res.status(500).json(err);//500はサーバー関連のerr
+        return res.status(500).json(err.message);//500はサーバー関連のerr
     }
 });
 
@@ -41,3 +49,5 @@ router.post("/login", async(req, res) => {
 
 module.exports = router;
 
+
+//res.status(400).json("パスワードが違います");
