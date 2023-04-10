@@ -7,6 +7,7 @@
 
 # サーバーサイド
 express MongoDB Mongoose
+MongoDBには、MongoDBの一意制約 (unique constraint)があり、、同じusernameの値を持つ複数のユーザーを作成しようとすると、エラーが発生する。
 
 これから
 セッションベース認証の実装、機能の追加
