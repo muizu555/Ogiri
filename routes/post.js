@@ -17,7 +17,7 @@ const ObjectId = require('mongodb').ObjectId;//objectId問題他に解決策を�
 // });
 //               | 下の方が正しい？   また、解答はpostだが、boardの配列へ格納するので、putメソッドなのでは？
 //
-router.post("/:id", async (req, res) => {//:idはboardのobjectID　どのお題に対する解答かが重要だから。
+router.post("/:id", async (req, res) => {//:idはboardのobjectID　どのお題に対する解答かが重要だから。//ok
     const newPost = new Post(req.body);
     try {//特にお題の解答の場合に権限をどうするかは、考えなくて良いはず。
         const board = await Board.findById(req.params.id);//ここでどのboardに格納すべきかを探している.
@@ -32,28 +32,54 @@ router.post("/:id", async (req, res) => {//:idはboardのobjectID　どのお題
         console.log(err);
         return res.status(500).json(err);
     }
-})
-
-
-
-
-//投稿を更新する
-router.put("/:id", async (req, res) => {// /:idはこれから編集する投稿のID
-    try {
-        const post = await Post.findById(req.params.id);//投稿自体のID  要するにここで特定の投稿を探してpostへ代入している
-        if(post.userId === req.body.userId){ ///ここが権限の話
-            await post.updateOne({
-                $set: req.body,//ここで編集している
-            });
-            return res.status(200).json("投稿編集に成功しました")
-        }
-        else{
-            return res.status(403).json("あなたは他の人の投稿を編集できません");
-        }
-    } catch (err) {
-        return res.status(500).json(err);
-    }
 });
+
+// //ミドルウェアを使ってやろう
+// const isAuthor = async (req, res, next) => {
+
+// }
+
+
+
+
+
+router.put("/:id", async (req, res) => {// /:idはこれから編集する投稿のID //認可
+        try {
+             const post = await Post.findById(req.params.id);//投稿自体のID  要するにここで特定の投稿を探してpostへ代入している
+             if(post.userId === req.session.user_id){ ///ここが権限の話　//ここでセッションIDを用いたい
+                 await post.updateOne({
+                     $set: req.body,//ここで編集している
+                 });
+                 return res.status(200).json("投稿編集に成功しました")
+             }
+             else{
+                 return res.status(403).json("あなたは他の人の投稿を編集できません");
+             }
+        } catch (err) {
+             return res.status(500).json(err);
+        }
+     });
+
+
+
+
+// //投稿を更新する
+// router.put("/:id", async (req, res) => {// /:idはこれから編集する投稿のID //認可
+//     try {
+//         const post = await Post.findById(req.params.id);//投稿自体のID  要するにここで特定の投稿を探してpostへ代入している
+//         if(post.userId === req.body.userId){ ///ここが権限の話　//ここでセッションIDを用いたい
+//             await post.updateOne({
+//                 $set: req.body,//ここで編集している
+//             });
+//             return res.status(200).json("投稿編集に成功しました")
+//         }
+//         else{
+//             return res.status(403).json("あなたは他の人の投稿を編集できません");
+//         }
+//     } catch (err) {
+//         return res.status(500).json(err);
+//     }
+// });
 
 
 
@@ -95,8 +121,7 @@ router.get("/:id", async (req, res) => {// /:idはこれから編集する投稿
         return res.status(200).json(post)
     } catch (err) {
         return res.status(500).json(err);
-    }
-   
+    } 
 });
 
 //特定の投稿にいいねを押す。muzui =>put いいねを押したり押さなかったりするから！！

@@ -19,6 +19,7 @@ router.post("/register", async(req,res) => {
             password: hash,
         });
         const user = await newUser.save();//ここで登録を保存している。documentを見るべし。ここポイント
+        req.session.user_id = user._id;  ///ここでユーザーIDをセッションに保存している
         return res.status(200).json(user);
     } catch (err) {
         return res.status(500).json(err.message);//500はサーバー関連のerr
@@ -33,9 +34,9 @@ router.post("/login", async(req, res) => {
         const validPassword = await bcrypt.compare(req.body.password, user.password);
         //const validPassword = req.body.password === user.password;//req.body.password === user.passwordが成り立てば、trueが返される。前のfindで配列は確定済み
         if(validPassword) {//ここから
-            req.session.user_id = user._id;
-            
+            req.session.user_id = user._id;//req.session.user_idは自分で箱を作っている
         }
+        
 
         //二つの条件式を突破できたら、
         return res.status(200).json(user);
@@ -44,6 +45,15 @@ router.post("/login", async(req, res) => {
         return res.status(500).json(err);
     }
 });
+
+router.get("/secret", (req, res) => {
+    if(!req.session.user_id){
+        return res.send("ログインされてません");  //本当はこの後にログインページに遷移させたい、もう一回ログインしてみたいな感じで
+    }
+    else{
+        res.send("セッションできてる");
+    }
+}); 
 
 
 
