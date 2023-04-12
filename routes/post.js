@@ -34,10 +34,17 @@ router.post("/:id", async (req, res) => {//:idはboardのobjectID　どのお題
     }
 });
 
-// //ミドルウェアを使ってやろう
-// const isAuthor = async (req, res, next) => {
-
-// }
+//ここでセッションがなかったら。res.redirectでログイン画面へ遷移させるようなミドルウェアを作ろう。もしいきなり編集の画面からアプリを立ち上げた時のため
+const isSession = async (req, res, next) => {
+    if(!req.session.user_id){
+        return res.redirect() //ここがres.redirect()の使い方がよくわからん 本当はここから同じ階層のpublicのlogin.jsへ遷移させたい
+    }
+    else{
+        return next();
+    }
+}
+//このミドルウェアを認証が必要な処理にかませれば、良さそう。（注）ここはセッションを保持しているかの確認で、誰なのかの認証ではなく、認可に近いかも！！
+ //sessionという入館証をuserが持っていて通すみたいな感じだから。 持ってなかったらログイン画面に戻って発行してきてね、みたいな話
 
 
 router.put("/:id", async (req, res) => {// /:idはこれから編集する投稿のID //認可  //ok
