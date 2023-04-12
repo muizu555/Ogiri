@@ -67,7 +67,7 @@ router.put("/:id", async (req, res) => {// /:idはこれから編集する投稿
 
 
 
-// //投稿を更新する
+// //投稿を更新する  githubの確認
 // router.put("/:id", async (req, res) => {// /:idはこれから編集する投稿のID //認可
 //     try {
 //         const post = await Post.findById(req.params.id);//投稿自体のID  要するにここで特定の投稿を探してpostへ代入している
