@@ -5,9 +5,6 @@ const updateDOM = document.querySelector(".update");
 
 //console.log(axios);
 
-
-
-
 formDOM.addEventListener("submit", async (event) => {
     event.preventDefault();//not reload
     const username = usernameDOM.value;

@@ -46,14 +46,14 @@ router.post("/login", async(req, res) => {
     }
 });
 
-router.get("/secret", (req, res) => {
-    if(!req.session.user_id){
-        return res.send("ログインされてません");  //本当はこの後にログインページに遷移させたい、もう一回ログインしてみたいな感じで
-    }
-    else{
-        res.send("セッションできてる");
-    }
-}); 
+// router.get("/secret", (req, res) => {//ログイン状態かどうかを確認するためのcode
+//     if(!req.session.user_id){
+//         return res.send("ログインされてません");  //本当はこの後にログインページに遷移させたい、もう一回ログインしてみたいな感じで
+//     }
+//     else{
+//         res.send("セッションできてる");
+//     }
+// }); 
 
 
 

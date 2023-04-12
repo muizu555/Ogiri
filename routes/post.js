@@ -40,10 +40,7 @@ router.post("/:id", async (req, res) => {//:idはboardのobjectID　どのお題
 // }
 
 
-
-
-
-router.put("/:id", async (req, res) => {// /:idはこれから編集する投稿のID //認可
+router.put("/:id", async (req, res) => {// /:idはこれから編集する投稿のID //認可  //ok
         try {
              const post = await Post.findById(req.params.id);//投稿自体のID  要するにここで特定の投稿を探してpostへ代入している
              if(post.userId === req.session.user_id){ ///ここが権限の話　//ここでセッションIDを用いたい
@@ -58,7 +55,7 @@ router.put("/:id", async (req, res) => {// /:idはこれから編集する投稿
         } catch (err) {
              return res.status(500).json(err);
         }
-     });
+});
 
 
 
@@ -84,10 +81,10 @@ router.put("/:id", async (req, res) => {// /:idはこれから編集する投稿
 
 
 //投稿を削除する  ここで配列の中から削除するのが、難しい
-router.delete("/:id", async (req, res) => {// /:idはこれから編集する投稿のID
+router.delete("/:id", async (req, res) => {// /:idはこれから編集する投稿のID  //ここをしっかり
     try {
         const post = await Post.findById(req.params.id);
-        if(post.userId === req.body.userId){
+        if(post.userId === req.session.user_id){
             //ここが難しい。
             const boards = await Board.find({});
             const deleteTargetBoards =  boards.filter((board) => 
@@ -124,7 +121,7 @@ router.get("/:id", async (req, res) => {// /:idはこれから編集する投稿
     } 
 });
 
-//特定の投稿にいいねを押す。muzui =>put いいねを押したり押さなかったりするから！！
+//特定の投稿にいいねを押す。muzui =>put いいねを押したり押さなかったりするから！！  //ここは、別にいらない
 router.put("/:id/like", async(req, res) => {//自分の投稿にもいいねを押せるようにする
     try {
         const post = await Post.findById(req.params.id);
