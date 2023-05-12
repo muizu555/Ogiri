@@ -2,6 +2,7 @@ const formDOM = document.querySelector(".task-form");
 const usernameDOM = document.querySelector(".task-input");
 const passwordDOM = document.querySelector(".content-input");
 const updateDOM = document.querySelector(".update");
+const backDOM = document.querySelector(".back");
 
 //console.log(axios);
 
@@ -33,7 +34,13 @@ updateDOM.addEventListener("submit", async (event) => {//ここはユーザー�
         console.log(err);
     }
 
+});
+
+backDOM.addEventListener("click", (event) => {
+    event.preventDefault();//not reload
+    window.location.href = "register.html";
 })
+
 
 
 

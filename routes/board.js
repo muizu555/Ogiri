@@ -62,4 +62,15 @@ router.get("/:id", async (req, res) => {// /:idはこれから編集する投稿
 });
 
 
+//全てのお題を取得する
+router.get("/",async(req, res) => {
+    try {
+        const allBoards = await Board.find({});
+        return res.status(200).json(allBoards);
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+})
+
+
 module.exports = router;
