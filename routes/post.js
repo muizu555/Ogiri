@@ -93,7 +93,7 @@ router.delete("/:id", async (req, res) => {// /:idはこれから編集する投
         const post = await Post.findById(req.params.id);
         if(post.userId === req.session.user_id){
             //ここが難しい。
-            const boards = await Board.find({});
+            const boards = await Board.find({});//一旦全部のboardをもってきている
             const deleteTargetBoards =  boards.filter((board) => 
                 (board.num_answer.includes(req.params.id))
             );
