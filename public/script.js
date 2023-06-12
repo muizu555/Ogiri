@@ -61,8 +61,10 @@ submitDOM.addEventListener("submit", async (event) =>{
         await axios.post("/api/boards",{title : title});//この後作った人のusernameを反映させなければならないので注意する
         contentDOM.value = "";
         console.log("投稿が成功しました")
+        showBoards();
     } catch (err) {
         console.log(err);
     }
+
 
 })

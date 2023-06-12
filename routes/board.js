@@ -20,6 +20,18 @@ router.post("/", async(req, res) => {
     }
 });
 
+
+//全てのお題を取得する
+router.get("/",async(req, res) => {
+    try {
+        const allBoards = await Board.find({});
+        return res.status(200).json(allBoards);
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+})
+
+
 //お題の編集
 router.put("/:id", async (req, res) => {// /:idはこれから編集するお題のID
     try {
