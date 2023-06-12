@@ -7,7 +7,13 @@ const Board = require("../models/Board");
 router.post("/", async(req, res) => {
     const newBoard = new Board(req.body);
     try {
-        const savedBoard = await newBoard.save(); //awaitの書く場所？
+        if(req.session.user_id){
+            const userId = req.session.user_id;
+            console.log(userId);
+            //console.log(newBoard);//ここまではいけている
+            newBoard.userId = userId;
+        }
+        const savedBoard = await newBoard.save(); 
         return res.status(200).json(savedBoard);
     } catch (err) {
         return res.status(500).json(err);

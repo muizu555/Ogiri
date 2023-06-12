@@ -9,6 +9,7 @@
 express MongoDB Mongoose
 MongoDBには、MongoDBの一意制約 (unique constraint)があり、、同じusernameの値を持つ複数のユーザーを作成しようとすると、エラーが発生する。
 認証はできたっぽい
+userIdをreqで送っていてその時点で認証になっていなかった
 
 これから
 セッションベース認証の実装(完了..多分)、機能の追加

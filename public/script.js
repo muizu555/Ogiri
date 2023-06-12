@@ -1,7 +1,8 @@
 const boardsDOM = document.querySelector(".thread-section");
 //console.log(boardsDOM);
 
-const submitDOM = document.querySelector(".btn submit-btn");
+const submitDOM = document.querySelector(".task-form");
+console.log(submitDOM);
 const contentDOM = document.querySelector(".content-input");
 
 
@@ -50,30 +51,15 @@ const showBoards = async () => {
 showBoards();
 
 
-function getSessionIdFromCookie() {
-    const cookies = document.cookie.split(";"); // Cookieをセミコロンで分割して配列に格納
-  
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim(); // クッキーの前後のスペースを削除
-  
-      // クッキーがセッションIDを含んでいる場合は取得して返す
-      if (cookie.startsWith("sessionId=")) {
-        return cookie.substring("sessionId=".length, cookie.length);
-      }
-    }
-  
-    return null; // セッションIDが見つからない場合はnullを返す
-  }
 
 submitDOM.addEventListener("submit", async (event) =>{
-    alert("こんにちは");
     event.preventDefault();
 
     const title = contentDOM.value;
     console.log(title);
     try {
-        const userId = getSessionIdFromCookie();
-        await axios.post("/api/boards",{title : title,userId : userId});//この後作った人のusernameを反映させなければならないので注意する
+        await axios.post("/api/boards",{title : title});//この後作った人のusernameを反映させなければならないので注意する
+        contentDOM.value = "";
         console.log("投稿が成功しました")
     } catch (err) {
         console.log(err);
