@@ -118,15 +118,27 @@ router.delete("/:id", async (req, res) => {// /:idはこれから編集する投
 });
 
 
-//投稿を取得する
-router.get("/:id", async (req, res) => {// /:idはこれから編集する投稿のID これは、誰でも見れるようにs
+
+
+//投稿を取得する　その特定のお題に格納されている投稿全てを
+router.get("/:id", async (req, res) => {// /:idはお題のID
+
     try {
-        const post = await Post.findById(req.params.id);
-        return res.status(200).json(post)
+        const board = await Board.findById(req.params.id);
+        console.log(board);
+        const postIds = board.num_answer;
+        console.log(postIds);
+        const posts = await Post.find({ _id: { $in: postIds } });
+        console.log(posts);
+        return res.status(200).json(posts)
     } catch (err) {
         return res.status(500).json(err);
     } 
 });
+
+
+
+
 
 //特定の投稿にいいねを押す。muzui =>put いいねを押したり押さなかったりするから！！  //ここは、別にいらない
 router.put("/:id/like", async(req, res) => {//自分の投稿にもいいねを押せるようにする

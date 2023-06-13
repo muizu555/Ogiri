@@ -1,16 +1,17 @@
+const postsDOM = document.querySelector(".thread-section");
 const params = window.location.search;//windowobjectの中のidが欲しい
 const id = new URLSearchParams(params).get("id");
 
 
 const showPosts = async () => {
     try {
-        const { data: boards } = await axios.get(`/api/posts/${id}`);
+        const { data: posts } = await axios.get(`/api/posts/${id}`);
 
         //console.log(boards);
 
-        const allBoards = boards.map((board) => {//Array.map
+        const allPosts = posts.map((post) => {//Array.map
             
-            const { title, _id, userId } = board;
+            const { desc, _id, userId } = post;
             //console.log(title);
 
 
@@ -31,12 +32,12 @@ const showPosts = async () => {
                         <i class="fas fa-thumbs-up"></i>
                     </button>
                 </div>
-                <p>${title}</p>
+                <p>${desc}</p>
             </div>`;
         }).join("");
         //console.log(allBoards);
 
-        boardsDOM.innerHTML = allBoards;
+        postsDOM.innerHTML = allPosts;
 
     } catch (err) {
         console.log(err);
@@ -48,18 +49,3 @@ showPosts();
 
 
 
-submitDOM.addEventListener("submit", async (event) =>{
-    event.preventDefault();
-
-    const title = contentDOM.value;
-    console.log(title);
-    try {
-        await axios.post("/api/boards",{title : title});//この後作った人のusernameを反映させなければならないので注意する
-        contentDOM.value = "";
-        console.log("投稿が成功しました")
-        showBoards();
-    } catch (err) {
-        console.log(err);
-    }
-
-})
