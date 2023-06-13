@@ -1,14 +1,10 @@
-const boardsDOM = document.querySelector(".thread-section");
-//console.log(boardsDOM);
-
-const submitDOM = document.querySelector(".task-form");
-console.log(submitDOM);
-const contentDOM = document.querySelector(".content-input");
+const params = window.location.search;//windowobjectの中のidが欲しい
+const id = new URLSearchParams(params).get("id");
 
 
-const showBoards = async () => {
+const showPosts = async () => {
     try {
-        const { data: boards } = await axios.get("/api/boards");
+        const { data: boards } = await axios.get(`/api/posts/${id}`);
 
         //console.log(boards);
 
@@ -48,7 +44,7 @@ const showBoards = async () => {
 
 }
 
-showBoards();
+showPosts();
 
 
 
@@ -65,6 +61,5 @@ submitDOM.addEventListener("submit", async (event) =>{
     } catch (err) {
         console.log(err);
     }
-
 
 })
