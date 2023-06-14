@@ -5,6 +5,8 @@ const Board = require("../models/Board");
 const ObjectId = require('mongodb').ObjectId;//objectId問題他に解決策を見つけたい
 
 
+
+
 // //投稿を作成する。//まさかのここでお題への挿入をするの？
 // router.post("/", async (req, res) => {
 //     const newPost = new Post(req.body);//インスタンス化している。req.bodyを含んだ新しいデータができる。
@@ -17,10 +19,13 @@ const ObjectId = require('mongodb').ObjectId;//objectId問題他に解決策を�
 // });
 //               | 下の方が正しい？   また、解答はpostだが、boardの配列へ格納するので、putメソッドなのでは？
 //
+
 router.post("/:id", async (req, res) => {//:idはboardのobjectID　どのお題に対する解答かが重要だから。//ok
     const newPost = new Post(req.body);
     try {//特にお題の解答の場合に権限をどうするかは、考えなくて良いはず。
         const board = await Board.findById(req.params.id);//ここでどのboardに格納すべきかを探している.
+        const userId = req.session.user_id;
+        newPost.userId = userId;
         await board.updateOne({
             $push: {
                 num_answer: newPost._id,//投稿のobjectIdを挿入している。
@@ -33,6 +38,7 @@ router.post("/:id", async (req, res) => {//:idはboardのobjectID　どのお題
         return res.status(500).json(err);
     }
 });
+
 
 //ここでセッションがなかったら。res.redirectでログイン画面へ遷移させるようなミドルウェアを作ろう。もしいきなり編集の画面からアプリを立ち上げた時のため
 const isSession = async (req, res, next) => {
@@ -125,11 +131,11 @@ router.get("/:id", async (req, res) => {// /:idはお題のID
 
     try {
         const board = await Board.findById(req.params.id);
-        console.log(board);
+        //console.log(board);
         const postIds = board.num_answer;
-        console.log(postIds);
+        //console.log(postIds);
         const posts = await Post.find({ _id: { $in: postIds } });
-        console.log(posts);
+        //console.log(posts);
         return res.status(200).json(posts)
     } catch (err) {
         return res.status(500).json(err);
@@ -171,33 +177,6 @@ router.put("/:id/like", async(req, res) => {//自分の投稿にもいいねを�
 
 
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

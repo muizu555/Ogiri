@@ -2,6 +2,9 @@ const postsDOM = document.querySelector(".thread-section");
 const params = window.location.search;//windowobjectの中のidが欲しい
 const id = new URLSearchParams(params).get("id");
 
+const submitDOM = document.querySelector(".task-form");
+const contentDOM = document.querySelector(".content-input");
+
 
 const showPosts = async () => {
     try {
@@ -46,6 +49,22 @@ const showPosts = async () => {
 }
 
 showPosts();
+
+submitDOM.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const desc = contentDOM.value;//中身
+    console.log(desc);
+
+    try {
+        await axios.post(`/api/posts/${id}`,{desc : desc});
+        contentDOM.value = "";
+        console.log("投稿が成功しました");
+        showPosts();
+    } catch (err) {
+        console.log(err);
+    }
+
+})
 
 
 
